@@ -1,0 +1,20 @@
+.clipboards-Clipboard {
+  box-sizing: border-box;
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  border: 1px solid #4e71ff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .name {
+    color: #4e71ff;
+  }
+
+  .area {
+    margin-left: 20px;
+    margin-right: 20px;
+    flex: 1;
+  }
+}

@@ -1,0 +1,25 @@
+.clipboards-Paging {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .dot {
+    padding: 15px 8px;
+
+    &::after {
+      display: block;
+      width: 10px;
+      height: 10px;
+      border: 1px solid #4e71ff;
+      border-radius: 50%;
+      content: "";
+      transition: 0.3s;
+    }
+
+    &.active {
+      &::after {
+        background-color: #4e71ff;
+      }
+    }
+  }
+}
