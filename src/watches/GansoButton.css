@@ -1,0 +1,16 @@
+.watches-GansoButton {
+  border-top: 1px solid #440381;
+  padding: 3px 20px 5px;
+  color: #440381;
+  cursor: default;
+
+  &.active {
+    border-color: #fff8;
+    color: #fff8;
+  }
+
+  &:not(.active):hover {
+    border-color: #fff;
+    color: #fff;
+  }
+}

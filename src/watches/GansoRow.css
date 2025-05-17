@@ -1,0 +1,10 @@
+.watches-GansoRow {
+  display: flex;
+  font-size: 20px;
+  color: #fff;
+  gap: 5px;
+
+  &:not(.highlight) {
+    opacity: 0.4;
+  }
+}

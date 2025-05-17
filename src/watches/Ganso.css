@@ -1,0 +1,33 @@
+.watches-Ganso {
+  box-sizing: border-box;
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  background-color: #44038144;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .name,
+  .loading,
+  .content {
+    text-align: center;
+  }
+
+  .name {
+    color: #fffc;
+  }
+
+  .loading {
+    font-size: 24px;
+    color: #888;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
