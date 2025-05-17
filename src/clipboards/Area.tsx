@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useEffect, useMemo, useState } from "react";
+import { storage } from "../firebases/storage";
 import "./Area.css";
-import { folder } from "./storage";
 import { useAsync } from "./useAsync";
 
 export function Area({ className, index, refresh }: Props) {
@@ -15,7 +15,7 @@ export function Area({ className, index, refresh }: Props) {
     [index, refresh]
   );
 
-  const file = useMemo(() => ref(folder, `${index}.txt`), [index]);
+  const file = useMemo(() => ref(storage, `clipboard/${index}.txt`), [index]);
   const download = useAsync(async () => {
     const url = await getDownloadURL(file);
     const response = await fetch(url);

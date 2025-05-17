@@ -4,7 +4,7 @@ import "./Paging.css";
 export function Paging({ index, setIndex, setRefresh }: Props) {
   return (
     <div className="clipboards-Paging">
-      {[0, 1, 2].map((i) => (
+      {[1, 0, 2].map((i) => (
         <div
           key={i}
           className={`dot ${i === index ? "active" : ""}`}

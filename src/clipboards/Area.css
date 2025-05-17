@@ -1,9 +1,10 @@
 .clipboards-Area {
   inset: 0;
   border: none;
+  background-color: transparent;
   text-align: center;
-  font-size: 2em;
-  color: #333;
+  font-size: 24px;
+  color: #fffc;
   resize: none;
   transition: 0.3s;
 
@@ -11,8 +12,8 @@
     outline: none;
   }
 
-  &.loading {
-    animation: clipboards-Area-loading 0.5s infinite alternate;
+  &::placeholder {
+    color: #888;
   }
 
   &.empty {
@@ -20,16 +21,6 @@
   }
 
   &.long {
-    font-size: 1.5em;
-  }
-}
-
-@keyframes clipboards-Area-loading {
-  0% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 0.3;
+    font-size: 18px;
   }
 }
