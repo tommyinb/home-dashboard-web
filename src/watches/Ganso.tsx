@@ -4,7 +4,7 @@ import { useAsync } from "../clipboards/useAsync";
 import { storage } from "../firebases/storage";
 import "./Ganso.css";
 import { GansoButton } from "./GansoButton";
-import type { GansoItem } from "./gansoItem";
+import type { GansoData } from "./gansoData";
 import { GansoRow } from "./GansoRow";
 
 export function Ganso() {
@@ -12,14 +12,14 @@ export function Ganso() {
 
   const asyncData = useAsync(async () => {
     if (refresh < 0) {
-      return [];
+      return undefined;
     }
 
     const file = ref(storage, "watches/ganso.json");
     const url = await getDownloadURL(file);
     const response = await fetch(url);
     const value = await response.json();
-    return value as GansoItem[];
+    return value as GansoData;
   }, [refresh]);
 
   return (
@@ -31,7 +31,7 @@ export function Ganso() {
       ) : (
         <div className="content">
           <div className="list">
-            {asyncData.value.map((item) => (
+            {asyncData.value?.items.map((item) => (
               <GansoRow key={item.date} item={item} />
             ))}
           </div>
