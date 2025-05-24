@@ -30,7 +30,7 @@ export function Treasury() {
         <div className="loading">(loading)</div>
       ) : (
         <div className="content">
-          <div className="list">
+          <div className="list" data-time={asyncData.value?.time}>
             {asyncData.value?.quotes
               .filter((quote) =>
                 ["US1M", "US1Y", "US5Y", "US10Y", "US20Y", "US30Y"].includes(
