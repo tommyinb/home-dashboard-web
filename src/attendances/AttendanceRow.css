@@ -1,0 +1,6 @@
+.attendances-AttendanceRow {
+  display: flex;
+  gap: 5px;
+  font-size: 18px;
+  color: #0008;
+}

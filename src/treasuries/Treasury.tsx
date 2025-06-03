@@ -1,7 +1,6 @@
-import { getDownloadURL, ref } from "firebase/storage";
 import { useState } from "react";
 import { useAsync } from "../clipboards/useAsync";
-import { storage } from "../firebases/storage";
+import { downloadJson } from "./downloadJson";
 import "./Treasury.css";
 import { TreasuryButton } from "./TreasuryButton";
 import type { TreasuryData } from "./treasuryData";
@@ -15,11 +14,7 @@ export function Treasury() {
       return undefined;
     }
 
-    const file = ref(storage, "treasuries/treasury.json");
-    const url = await getDownloadURL(file);
-    const response = await fetch(url);
-    const value = await response.json();
-    return value as TreasuryData;
+    return await downloadJson<TreasuryData>("treasuries/treasury.json");
   }, [refresh]);
 
   return (

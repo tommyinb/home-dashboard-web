@@ -1,0 +1,16 @@
+.attendances-AttendanceButton {
+  border-top: 1px solid #ffa5a5;
+  padding: 3px 20px 5px;
+  color: #ffa5a5;
+  cursor: default;
+
+  &.active:hover {
+    border-color: #fff;
+    color: #fff;
+  }
+
+  &:not(.active) {
+    border-color: #fff8;
+    color: #fff8;
+  }
+}

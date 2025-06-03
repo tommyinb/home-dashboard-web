@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import "./App.css";
+import { Attendance } from "./attendances/Attendance";
 import { Clipboard } from "./clipboards/Clipboard";
 import { Treasury } from "./treasuries/Treasury";
 
@@ -10,6 +11,8 @@ function App() {
         <Clipboard />
 
         <Treasury />
+
+        <Attendance />
       </Suspense>
     </div>
   );
