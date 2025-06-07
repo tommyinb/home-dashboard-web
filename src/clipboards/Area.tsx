@@ -45,6 +45,8 @@ export function Area({ className, index, refresh }: Props) {
     [content, file]
   );
 
+  const [selectAll, setSelectAll] = useState(true);
+
   return (
     <textarea
       className={`clipboards-Area ${className} ${
@@ -57,6 +59,7 @@ export function Area({ className, index, refresh }: Props) {
           : ""
       }`}
       value={content.type === "idle" ? "" : content.value}
+      placeholder={content.type === "idle" ? "(loading)" : "(empty)"}
       onChange={(event) =>
         setContent({
           type: "manual",
@@ -65,7 +68,13 @@ export function Area({ className, index, refresh }: Props) {
           refresh,
         })
       }
-      placeholder={content.type === "idle" ? "(loading)" : "(empty)"}
+      onClick={(event) => {
+        if (selectAll) {
+          (event.target as HTMLTextAreaElement).select();
+          setSelectAll(false);
+        }
+      }}
+      onBlur={() => setSelectAll(true)}
     />
   );
 }
