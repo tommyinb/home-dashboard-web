@@ -20,9 +20,7 @@ export function AttendanceButton({ attendances }: Props) {
         type: attendance.type,
       }));
 
-      const dates = [...new Set(items.map((item) => item.date))]
-        .sort()
-        .reverse();
+      const dates = [...new Set(items.map((item) => item.date))].sort();
 
       const lines = dates.map((date) => {
         const weekday = getWeekday(new Date(date));
@@ -31,14 +29,12 @@ export function AttendanceButton({ attendances }: Props) {
           .filter((item) => item.date === date && item.type === "arrive")
           .map((item) => item.time.substring(0, 5))
           .sort();
-
         const arrive = arrives[0] ?? "-";
 
         const leaves = items
           .filter((item) => item.date === date && item.type === "leave")
           .map((item) => item.time.substring(0, 5))
           .sort();
-
         const leave = leaves[leaves.length - 1] ?? "-";
 
         return `${date}, ${weekday}, ${arrive}, ${leave}`;
