@@ -1,27 +1,40 @@
 .clipboards-Area {
-  inset: 0;
-  border: none;
-  background-color: transparent;
-  text-align: center;
-  font-size: 24px;
-  color: #fffc;
-  resize: none;
-  transition: 0.3s;
-  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
 
-  &:focus {
-    outline: none;
+  .text {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    font-size: 24px;
+    color: #fffc;
+    resize: none;
+    transition: 0.3s;
+    scrollbar-width: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #888;
+    }
+
+    &.loading {
+      opacity: 0.4;
+    }
+
+    &.empty {
+      opacity: 0.6;
+    }
+
+    &.long {
+      font-size: 18px;
+    }
   }
 
-  &::placeholder {
-    color: #888;
-  }
-
-  &.empty {
-    opacity: 0.4;
-  }
-
-  &.long {
-    font-size: 18px;
+  .control {
+    margin: 10px;
   }
 }

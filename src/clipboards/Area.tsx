@@ -2,6 +2,8 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useEffect, useMemo, useState } from "react";
 import { storage } from "../firebases/storage";
 import "./Area.css";
+import type { Content } from "./content";
+import { Control } from "./Control";
 import { useAsync } from "./useAsync";
 
 export function Area({ className, index, refresh }: Props) {
@@ -48,34 +50,44 @@ export function Area({ className, index, refresh }: Props) {
   const [selectAll, setSelectAll] = useState(true);
 
   return (
-    <textarea
-      className={`clipboards-Area ${className} ${
-        content.type === "idle"
-          ? "loading"
-          : !content.value
-          ? "empty"
-          : content.value.length > 80
-          ? "long"
-          : ""
-      }`}
-      value={content.type === "idle" ? "" : content.value}
-      placeholder={content.type === "idle" ? "(loading)" : "(empty)"}
-      onChange={(event) =>
-        setContent({
-          type: "manual",
-          value: event.target.value,
-          index,
-          refresh,
-        })
-      }
-      onClick={(event) => {
-        if (selectAll) {
-          (event.target as HTMLTextAreaElement).select();
-          setSelectAll(false);
+    <div className={`clipboards-Area ${className}`}>
+      <textarea
+        className={`text ${
+          content.type === "idle"
+            ? "loading"
+            : !content.value
+            ? "empty"
+            : content.value.length > 80
+            ? "long"
+            : ""
+        }`}
+        value={content.type === "idle" ? "" : content.value}
+        placeholder={content.type === "idle" ? "(loading)" : "(empty)"}
+        onChange={(event) =>
+          setContent({
+            type: "manual",
+            value: event.target.value,
+            index,
+            refresh,
+          })
         }
-      }}
-      onBlur={() => setSelectAll(true)}
-    />
+        onClick={(event) => {
+          if (selectAll) {
+            (event.target as HTMLTextAreaElement).select();
+            setSelectAll(false);
+          }
+        }}
+        onBlur={() => setSelectAll(true)}
+      />
+
+      {content.type !== "idle" && (
+        <Control
+          className="control"
+          value={content.value}
+          setContent={setContent}
+        />
+      )}
+    </div>
   );
 }
 
@@ -85,20 +97,3 @@ interface Props {
   index: number;
   refresh: number;
 }
-
-type Content = (
-  | {
-      type: "idle";
-    }
-  | {
-      type: "download";
-      value: string;
-    }
-  | {
-      type: "manual";
-      value: string;
-    }
-) & {
-  index: number;
-  refresh: number;
-};
