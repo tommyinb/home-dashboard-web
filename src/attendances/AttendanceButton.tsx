@@ -14,33 +14,49 @@ export function AttendanceButton({ attendances }: Props) {
         return;
       }
 
-      const items = attendances.map((attendance) => ({
+      const attendanceItems = attendances.map((attendance) => ({
+        attendance,
         date: new Date(attendance.time).toLocaleDateString("en-CA"),
         time: new Date(attendance.time).toLocaleTimeString("en-GB"),
-        type: attendance.type,
       }));
 
-      const dates = [...new Set(items.map((item) => item.date))].sort();
+      const dateItems = [...new Set(attendanceItems.map((item) => item.date))]
+        .sort()
+        .map((date) => ({
+          date,
+          week:
+            parseInt(date.replaceAll("-", "")) - (new Date(date).getDay() - 1),
+        }));
 
-      const lines = dates.map((date) => {
-        const weekday = getWeekday(new Date(date));
+      const weeks = [...new Set(dateItems.map((item) => item.week))];
 
-        const arrives = items
-          .filter((item) => item.date === date && item.type === "arrive")
-          .map((item) => item.time.substring(0, 5))
-          .sort();
-        const arrive = arrives[0] ?? "-";
+      const text = weeks
+        .map((week) =>
+          dateItems
+            .filter((item) => item.week === week)
+            .map((item) => item.date)
+            .map((date) => {
+              const weekday = getWeekday(new Date(date));
 
-        const leaves = items
-          .filter((item) => item.date === date && item.type === "leave")
-          .map((item) => item.time.substring(0, 5))
-          .sort();
-        const leave = leaves[leaves.length - 1] ?? "-";
+              const arrives = attendanceItems
+                .filter((item) => item.date === date)
+                .filter((item) => item.attendance.type === "arrive")
+                .map((item) => item.time.substring(0, 5))
+                .sort();
+              const arrive = arrives[0] ?? "-";
 
-        return `${date}, ${weekday}, ${arrive}, ${leave}`;
-      });
+              const leaves = attendanceItems
+                .filter((item) => item.date === date)
+                .filter((item) => item.attendance.type === "leave")
+                .map((item) => item.time.substring(0, 5))
+                .sort();
+              const leave = leaves[leaves.length - 1] ?? "-";
 
-      const text = lines.join("\n");
+              return `${date}, ${weekday}, ${arrive}, ${leave}`;
+            })
+            .join("\n")
+        )
+        .join("\n\n");
 
       await navigator.clipboard.writeText(text);
 
